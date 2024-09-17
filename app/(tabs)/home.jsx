@@ -39,13 +39,24 @@ const Home = () => {
     }
   );
 
+  const handleLogout = () => {
+    // Aquí agregas la lógica para cerrar sesión
+    // Por ejemplo, limpiar el estado de autenticación
+    console.log('Cerrar sesión');
+    // Redirigir al usuario a la pantalla de inicio de sesión
+    router.push('/sign-in');
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       {/* Oculta la barra de estado */}
       <StatusBar hidden={true} />
       <Animated.View style={[styles.header, { transform: [{ translateY: headerVisible ? 0 : -100 }] }]}>
         <Text style={styles.logo}>Cybercopias</Text>
-        {/* Eliminar el botón de iniciar sesión */}
+        {/* Botón de cierre de sesión */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
+        </TouchableOpacity>
       </Animated.View>
 
       <ScrollView
@@ -129,7 +140,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'center', // Centra el contenido horizontalmente
+    justifyContent: 'space-between', // Alinea el logo y el botón de cierre de sesión
     alignItems: 'center',
     marginBottom: 20,
     backgroundColor: '#ffffff',
@@ -143,6 +154,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#111418',
+  },
+  logoutButton: {
+    backgroundColor: '#ff4d4d', // Color rojo para el botón de cierre de sesión
+    padding: 10,
+    borderRadius: 5,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
   home: {
     width: '100%',
@@ -218,13 +238,10 @@ const styles = StyleSheet.create({
     width: 150,
     marginRight: 10,
     alignItems: 'center',
-    borderRadius: 8,
-    backgroundColor: '#f5f5f5',
-    padding: 10,
   },
   productImage: {
     width: '100%',
-    height: 100,
+    height: 150,
     borderRadius: 8,
   },
   productTitle: {
@@ -236,17 +253,15 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: 14,
     color: '#111418',
-    marginTop: 4,
   },
   addButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#007bff', // Cambiar el color del botón a azul
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
   },
   addButtonText: {
     color: '#fff',
-    fontSize: 14,
   },
 });
 
