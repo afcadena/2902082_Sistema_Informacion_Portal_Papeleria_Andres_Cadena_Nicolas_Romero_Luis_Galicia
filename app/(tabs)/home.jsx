@@ -39,24 +39,13 @@ const Home = () => {
     }
   );
 
-  const handleLogout = () => {
-    // Aquí agregas la lógica para cerrar sesión
-    // Por ejemplo, limpiar el estado de autenticación
-    console.log('Cerrar sesión');
-    // Redirigir al usuario a la pantalla de inicio de sesión
-    router.push('/sign-in');
-  };
-
   return (
     <SafeAreaView style={styles.safeArea}>
       {/* Oculta la barra de estado */}
       <StatusBar hidden={true} />
       <Animated.View style={[styles.header, { transform: [{ translateY: headerVisible ? 0 : -100 }] }]}>
         <Text style={styles.logo}>Cybercopias</Text>
-        {/* Botón de cierre de sesión */}
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
-        </TouchableOpacity>
+        {/* Botón de cierre de sesión eliminado */}
       </Animated.View>
 
       <ScrollView
@@ -155,15 +144,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#111418',
   },
-  logoutButton: {
-    backgroundColor: '#ff4d4d', // Color rojo para el botón de cierre de sesión
-    padding: 10,
-    borderRadius: 5,
-  },
-  logoutButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
+  // Estilos del botón de cierre de sesión eliminados
   home: {
     width: '100%',
     height: 300,

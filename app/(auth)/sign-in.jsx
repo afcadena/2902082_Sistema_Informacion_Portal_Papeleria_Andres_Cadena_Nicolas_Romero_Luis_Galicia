@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, SafeAreaView, Image, Dimensions } from 'react-native';
 import { useRouter } from 'expo-router';
-import { signIn } from '../../lib/appwrite';  // Importa la función de inicio de sesión
+import { signIn, getCurrentUser } from '../../lib/appwrite';  // Importa la función de inicio de sesión y obtención de usuario
 
 const { width } = Dimensions.get('window'); // Obtener el ancho de la pantalla
 
@@ -12,6 +12,7 @@ const SignIn = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -25,20 +26,20 @@ const SignIn = () => {
     setIsSubmitting(true);
 
     try {
-      // Llamar a la función de signIn con las credenciales
       const session = await signIn(email, password);
-      
+      console.log('Session:', session); // Imprime la respuesta de sesión
       if (session) {
+        // Obtener el usuario actual después del inicio de sesión
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
         Alert.alert('Login Exitoso');
         router.replace('/home');  // Navegar a la página principal si es exitoso
       }
     } catch (error) {
-      console.error('Error durante el inicio de sesión:', error.message);
-      Alert.alert('Error', error.message);
-    } finally {
-      setIsSubmitting(false);
+      console.error('Error durante el inicio de sesión:', error);
+      Alert.alert('Error', `Mensaje: ${error.message}\nCódigo: ${error.code}`);
     }
-  };
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
